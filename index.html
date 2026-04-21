@@ -6,26 +6,264 @@
     <title>InvestoAI - AI-Powered Stock Analysis</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, sans-serif; background: #0F1117; color: #E0E0E0; }
-        .hero { text-align: center; padding: 100px 20px; max-width: 600px; margin: 0 auto; }
-        h1 { color: #29D69A; font-size: 2.5em; margin-bottom: 16px; }
-        p { color: #888; font-size: 1.1em; line-height: 1.6; margin-bottom: 24px; }
-        .badge { display: inline-block; margin-top: 20px; }
-        .links { margin-top: 40px; }
-        .links a { color: #29D69A; margin: 0 12px; text-decoration: none; }
-        .footer { color: #444; font-size: 0.85em; margin-top: 60px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0F1117; color: #E0E0E0; min-height: 100vh; }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #1a2f25, #0F1117);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #29D69A33;
+        }
+        
+        .logo-icon svg { width: 48px; height: 48px; }
+        
+        h1 {
+            font-size: 3em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #29D69A, #20B880);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        
+        .tagline {
+            font-size: 1.25em;
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #29D69A, #20B880);
+            color: #000;
+            font-weight: 700;
+            font-size: 1em;
+            padding: 14px 36px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-bottom: 60px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(41, 214, 153, 0.3);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+        
+        .feature-card {
+            background: #1A1D27;
+            border: 1px solid #2A2D37;
+            border-radius: 16px;
+            padding: 28px;
+            text-align: left;
+            transition: border-color 0.2s;
+        }
+        
+        .feature-card:hover { border-color: #29D69A44; }
+        
+        .feature-icon {
+            font-size: 1.8em;
+            margin-bottom: 12px;
+        }
+        
+        .feature-card h3 {
+            color: #fff;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        
+        .feature-card p {
+            color: #888;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        .built-by {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            padding: 32px 20px;
+            background: #1A1D27;
+            border-radius: 16px;
+            border: 1px solid #2A2D37;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        
+        .built-by h3 {
+            color: #29D69A;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+        
+        .built-by p {
+            color: #888;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        .tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+        
+        .tier-card {
+            background: #1A1D27;
+            border: 1px solid #2A2D37;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .tier-card.highlight { border-color: #29D69A55; }
+        
+        .tier-card h4 { color: #fff; font-size: 1.1em; margin-bottom: 4px; }
+        .tier-card .price { color: #29D69A; font-size: 1.4em; font-weight: 700; margin-bottom: 12px; }
+        .tier-card ul { list-style: none; text-align: left; }
+        .tier-card li { color: #888; font-size: 0.85em; padding: 4px 0; }
+        .tier-card li::before { content: "✓ "; color: #29D69A; }
+        
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #1E2029;
+            color: #555;
+            font-size: 0.85em;
+        }
+        
+        .footer a { color: #29D69A; text-decoration: none; margin: 0 12px; }
+        .footer a:hover { text-decoration: underline; }
+        .footer-links { margin-bottom: 12px; }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2em; }
+            .tagline { font-size: 1em; }
+            .features { grid-template-columns: 1fr; }
+            .tiers { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
     <div class="hero">
-        <h1>InvestoAI</h1>
-        <p>AI-powered stock analysis built by investors with 30+ years of experience. Get instant insights, support & resistance levels, and daily Top 10 picks.</p>
-        <p style="color:#29D69A; font-size:1.2em;">Coming soon to the App Store</p>
-        <div class="links">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/support">Support</a>
+        <div class="logo-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 36L16 28L24 32L40 12" stroke="#29D69A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="40" cy="12" r="4" fill="#29D69A" opacity="0.8"/>
+                <circle cx="24" cy="32" r="3" fill="#29D69A" opacity="0.6"/>
+                <circle cx="16" cy="28" r="3" fill="#29D69A" opacity="0.6"/>
+                <circle cx="8" cy="36" r="3" fill="#29D69A" opacity="0.6"/>
+            </svg>
         </div>
-        <p class="footer">&copy; 2026 NESTING LLC</p>
+        <h1>InvestoAI</h1>
+        <p class="tagline">AI-powered stock analysis built by investors with 30+ years of experience. Get instant insights, support &amp; resistance levels, and daily Top 10 picks.</p>
+        <a href="#" class="badge">Available on the App Store</a>
+    </div>
+    
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Instant AI Analysis</h3>
+            <p>Enter any ticker and receive a full technical breakdown with entry signals, support/resistance levels, and confidence scores in seconds.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <h3>AI-Written Insights</h3>
+            <p>Every analysis comes with a clear, human-readable summary explaining what the technicals mean and what to watch for next.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🏆</div>
+            <h3>Daily Top 10 Picks</h3>
+            <p>Our AI scans the entire U.S. market twice daily and delivers the top stock picks with entry, targets, and stop loss levels.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📰</div>
+            <h3>Breaking Market News</h3>
+            <p>Stay ahead with real-time financial news filtered by sentiment, so you know what's moving markets right now.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Technical Indicators</h3>
+            <p>RSI, ADX, volume ratio, divergence signals, candlestick patterns, and reversal detection — all in one clean view.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">👁️</div>
+            <h3>Personal Watchlist</h3>
+            <p>Track your favorite stocks with live prices and quick-access analysis whenever you need it.</p>
+        </div>
+    </div>
+    
+    <div class="built-by">
+        <h3>Built by Real Investors</h3>
+        <p>InvestoAI isn't built by tech companies guessing at finance. Our analysis engine was designed by investors with over 30 years of combined experience managing high-profile accounts. Every signal, every indicator, and every AI insight is grounded in strategies tested in real markets.</p>
+    </div>
+    
+    <div class="tiers">
+        <div class="tier-card">
+            <h4>Free</h4>
+            <div class="price">$0</div>
+            <ul>
+                <li>1 analysis per day</li>
+                <li>Breaking news feed</li>
+                <li>Explore the app</li>
+            </ul>
+        </div>
+        <div class="tier-card highlight">
+            <h4>Basic</h4>
+            <div class="price">$9.99/mo</div>
+            <ul>
+                <li>Unlimited analyses</li>
+                <li>AI-powered insights</li>
+                <li>Personal watchlist</li>
+                <li>Full technical indicators</li>
+            </ul>
+        </div>
+        <div class="tier-card highlight">
+            <h4>Pro</h4>
+            <div class="price">$24.99/mo</div>
+            <ul>
+                <li>Everything in Basic</li>
+                <li>Daily Top 10 AI picks</li>
+                <li>Twice-daily market scans</li>
+                <li>AI reasoning per pick</li>
+                <li>Entry, targets & stop loss</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-links">
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="/terms.html">Terms of Use</a>
+            <a href="/support.html">Support</a>
+        </div>
+        <p>&copy; 2026 NESTING LLC. All rights reserved.</p>
+        <p style="margin-top: 8px; font-size: 0.8em;">Technical analysis only. Not financial advice.</p>
     </div>
 </body>
 </html>
